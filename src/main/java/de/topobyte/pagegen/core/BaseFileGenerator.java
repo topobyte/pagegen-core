@@ -1,33 +1,28 @@
 package de.topobyte.pagegen.core;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import de.topobyte.jsoup.ContentGeneratable;
 import de.topobyte.jsoup.ElementBuilder;
+import de.topobyte.jsoup.HTML;
 import de.topobyte.jsoup.HtmlBuilder;
+import de.topobyte.jsoup.components.A;
 import de.topobyte.jsoup.nodes.Element;
+import de.topobyte.webpaths.WebPath;
 
 public class BaseFileGenerator implements ContentGeneratable, LinkResolver
 {
 
 	protected Context context;
-	protected Path file;
-	protected Path parentFile;
-	protected boolean isDir;
+	protected WebPath path;
 	protected HtmlBuilder builder;
 
-	protected Element header;
 	protected Element content;
-	protected Element footer;
 
-	public BaseFileGenerator(Context context, Path file, boolean isDir)
+	public BaseFileGenerator(Context context, WebPath path)
 	{
 		this.context = context;
-		this.file = file;
-		parentFile = file.getParent();
-		this.isDir = isDir;
+		this.path = path;
 		builder = new HtmlBuilder();
 	}
 
@@ -41,9 +36,9 @@ public class BaseFileGenerator implements ContentGeneratable, LinkResolver
 	}
 
 	@Override
-	public Path getFile()
+	public WebPath getPath()
 	{
-		return file;
+		return path;
 	}
 
 	@Override
@@ -58,27 +53,21 @@ public class BaseFileGenerator implements ContentGeneratable, LinkResolver
 		return content;
 	}
 
-	public String getLink(Path other)
+	public void setContent(Element content)
 	{
-		if (isDir) {
-			return file.relativize(other).toString();
-		} else if (parentFile == null) {
-			return other.toString();
-		} else {
-			return parentFile.relativize(other).toString();
-		}
+		this.content = content;
 	}
 
 	@Override
-	public String getLinkFromBase(String path)
+	public String getLink(WebPath other)
 	{
-		return getLinkFromBase(Paths.get(path));
+		WebPath relative = path.relativize(other);
+		return relative.toString();
 	}
 
-	@Override
-	public String getLinkFromBase(Path path)
+	public A a(WebPath other)
 	{
-		return getLink(context.fromBase(path));
+		return HTML.a(path.relativize(other).toString());
 	}
 
 }

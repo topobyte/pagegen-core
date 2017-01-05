@@ -1,12 +1,10 @@
 package de.topobyte.pagegen.core;
 
-import java.nio.file.Path;
+import de.topobyte.webpaths.WebPath;
 
 public interface LinkResolver
 {
 
-	public String getLinkFromBase(String path);
-
-	public String getLinkFromBase(Path path);
+	public String getLink(WebPath other);
 
 }
