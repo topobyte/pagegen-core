@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    compile 'topobyte:jsoup-utils:0.0.7'
+    compile 'topobyte:jsoup-utils:0.0.8'
 }
 
 uploadArchives {
