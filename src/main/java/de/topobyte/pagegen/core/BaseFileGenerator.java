@@ -30,15 +30,13 @@ import de.topobyte.webpaths.WebPath;
 public class BaseFileGenerator implements ContentGeneratable, LinkResolver
 {
 
-	protected Context context;
 	protected WebPath path;
 	protected HtmlBuilder builder;
 
 	protected Element content;
 
-	public BaseFileGenerator(Context context, WebPath path)
+	public BaseFileGenerator(WebPath path)
 	{
-		this.context = context;
 		this.path = path;
 		builder = new HtmlBuilder();
 	}
