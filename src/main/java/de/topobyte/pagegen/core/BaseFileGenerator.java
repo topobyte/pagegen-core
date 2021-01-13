@@ -81,9 +81,14 @@ public class BaseFileGenerator implements ContentGeneratable, LinkResolver
 		return relative.toString();
 	}
 
-	public A a(WebPath other)
+	public A link(WebPath other)
 	{
 		return HTML.a(path.relativize(other).toString());
+	}
+
+	public A link(WebPath other, String text)
+	{
+		return HTML.a(path.relativize(other).toString(), text);
 	}
 
 }
