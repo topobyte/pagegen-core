@@ -24,6 +24,7 @@ import de.topobyte.jsoup.ElementBuilder;
 import de.topobyte.jsoup.HTML;
 import de.topobyte.jsoup.HtmlBuilder;
 import de.topobyte.jsoup.components.A;
+import de.topobyte.jsoup.components.Head;
 import de.topobyte.jsoup.nodes.Element;
 import de.topobyte.webpaths.WebPath;
 
@@ -33,7 +34,7 @@ public class BaseFileGenerator implements ContentGeneratable, LinkResolver
 	protected WebPath path;
 	protected HtmlBuilder builder;
 
-	protected Element content;
+	protected Element<?> content;
 
 	public BaseFileGenerator(WebPath path)
 	{
@@ -44,7 +45,7 @@ public class BaseFileGenerator implements ContentGeneratable, LinkResolver
 	@Override
 	public void generate() throws IOException
 	{
-		Element head = builder.getHead();
+		Head head = builder.getHead();
 
 		head.appendChild(ElementBuilder.create("meta", "http-equiv",
 				"content-type", "content", "text/html; charset=utf-8"));
@@ -63,12 +64,12 @@ public class BaseFileGenerator implements ContentGeneratable, LinkResolver
 	}
 
 	@Override
-	public Element getContent()
+	public Element<?> getContent()
 	{
 		return content;
 	}
 
-	public void setContent(Element content)
+	public void setContent(Element<?> content)
 	{
 		this.content = content;
 	}
